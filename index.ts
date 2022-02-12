@@ -142,7 +142,8 @@ module EvilTimer
         default:
             return styleReplaceMode;
         }
-    };    export const setStyleReplaceMode = (mode: StyleReplaceModeType) =>
+    };
+    export const setStyleReplaceMode = (mode: StyleReplaceModeType) =>
     {
         switch(mode)
         {
