@@ -183,7 +183,10 @@ module EvilTimer
             {
                 susppendedTasks.push(() => callback(...args));
             }
-            callback(...args);
+            else
+            {
+                callback(...args);
+            }
         },
         wait / speedRate
     );

@@ -148,7 +148,9 @@ var EvilTimer;
             if (isPaused) {
                 susppendedTasks.push(function () { return callback.apply(void 0, args); });
             }
-            callback.apply(void 0, args);
+            else {
+                callback.apply(void 0, args);
+            }
         }, wait / speedRate);
     };
     EvilTimer.setIntervalEx = function (callback, wait) {
