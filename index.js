@@ -176,5 +176,8 @@ var EvilTimer;
     gThis.EvilTimer = EvilTimer;
     gThis.setInterval = EvilTimer.setIntervalEx;
     gThis.setTimeout = EvilTimer.setTimeoutEx;
+    if (!gThis.disabledEvilTimerLoadMessage) {
+        console.log("evil-timer.js is loaded. You can use EvilTimer commands. see: https://github.com/wraith13/evil-timer.js");
+    }
 })(EvilTimer || (EvilTimer = {}));
 //# sourceMappingURL=index.js.map

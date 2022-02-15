@@ -222,4 +222,8 @@ module EvilTimer
     gThis.EvilTimer = EvilTimer;
     gThis.setInterval = setIntervalEx;
     gThis.setTimeout = setTimeoutEx;
+    if ( ! gThis.disabledEvilTimerLoadMessage)
+    {
+        console.log("evil-timer.js is loaded. You can use EvilTimer commands. see: https://github.com/wraith13/evil-timer.js");
+    }
 }
