@@ -159,6 +159,11 @@ EvilTimer.setStyleReplaceMode("embedded");
 EvilTimer.setStyleReplaceMode("rules");
 ```
 
+## Sample sites
+
+- [Clockworks](https://wraith13.github.io/clockworks/) ( 🚧 under development )
+- [Cyclic Todo](https://wraith13.github.io/cyclic-todo/) ( 🚧 under development )
+
 ## How to build
 
 requires: [Node.js](https://nodejs.org/), [TypeScript Compiler](https://www.npmjs.com/package/typescript)
