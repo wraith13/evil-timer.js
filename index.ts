@@ -23,8 +23,8 @@ module EvilTimer
     // export type StyleReplaceModeType = "auto" | "disabled" | "embedded" | "rules" | "sheets";
     export type StyleReplaceModeType = "auto" | "disabled" | "embedded" | "rules";
     let styleReplaceMode: StyleReplaceModeType = "disabled";
-    let originalEmbeddedStyles:string[] = null;
-    let originalStyleRules:string[][] = null;
+    let originalEmbeddedStyles:string[] | null = null;
+    let originalStyleRules:(string[] | null)[] | null = null;
     // let originalStyleSheets:string[] = null;
     let speed = 1;
     let isPaused = false;
@@ -143,10 +143,13 @@ module EvilTimer
     } as {
         new (): Date;
         (): string;
+        parse: typeof VanillaDate.parse;
+        UTC: typeof VanillaDate.UTC;
+        now: typeof VanillaDate.now;
     };
-    (<any>EvilDate).parse = VanillaDate.parse;
-    (<any>EvilDate).UTC = VanillaDate.UTC;
-    (<any>EvilDate).now = getEvilNow;
+    EvilDate.parse = VanillaDate.parse;
+    EvilDate.UTC = VanillaDate.UTC;
+    EvilDate.now = getEvilNow;
     export const setDate = (date: Date | number | string | boolean) =>
     {
         if ("boolean" === typeof date)
@@ -188,7 +191,7 @@ module EvilTimer
     const replaceTimer = (rate: number, css: string) => css.replace
     (
         styleTimerRegExp,
-        (_m, p1, p2) => `${p1}${p2.replace(/([\+\-]?[0-9.]+)(m?s)/gmu, (_m, p1, p2) => (parseFloat(p1) / Math.abs(rate)).toLocaleString("en") +p2)};`
+        (_m: string, p1: string, p2: string) => `${p1}${p2.replace(/([\+\-]?[0-9.]+)(m?s)/gmu, (_m, p1, p2) => (parseFloat(p1) / Math.abs(rate)).toLocaleString("en") +p2)};`
     );
     const updateEmbeddedStyle = (rate: number = speed) =>
     {
@@ -201,9 +204,9 @@ module EvilTimer
         (
             (i, ix) =>
             {
-                if (hasTimer(originalEmbeddedStyles[ix] ?? ""))
+                if (hasTimer(originalEmbeddedStyles?.[ix] ?? ""))
                 {
-                    i.innerHTML = replaceTimer(rate, originalEmbeddedStyles[ix]);
+                    i.innerHTML = replaceTimer(rate, originalEmbeddedStyles?.[ix] ?? "");
                 }
             }
         );
@@ -237,13 +240,13 @@ module EvilTimer
         (
             (stylesheet, ix) =>
             {
-                if (null !== originalStyleRules[ix])
+                if (null !== originalStyleRules?.[ix])
                 {
                     while(0 < stylesheet.cssRules.length)
                     {
                         stylesheet.deleteRule(0);
                     }
-                    originalStyleRules[ix].forEach
+                    originalStyleRules?.[ix]?.forEach
                     (
                         rule => stylesheet.insertRule(replaceTimer(rate, rule))
                     );
@@ -370,7 +373,7 @@ module EvilTimer
                 callback(...args);
             }
         },
-        wait / Math.abs(speed)
+        undefined === wait ? wait: wait / Math.abs(speed)
     );
     export const evilSetInterval = (callback: Function, wait?: number, ...args: any) =>
     {
@@ -393,7 +396,7 @@ module EvilTimer
                     callback(...args);
                 }
             },
-            wait / Math.abs(speed)
+            undefined === wait ? wait: wait / Math.abs(speed)
         );
     };
     export module Vanilla
@@ -406,10 +409,13 @@ module EvilTimer
         } as {
             new (): Date;
             (): string;
+            parse: typeof VanillaDate.parse;
+            UTC: typeof VanillaDate.UTC;
+            now: typeof VanillaDate.now;
         };
-        (<any>Date).parse = VanillaDate.parse;
-        (<any>Date).UTC = VanillaDate.UTC;
-        (<any>Date).now = VanillaDate.now;
+        Date.parse = VanillaDate.parse;
+        Date.UTC = VanillaDate.UTC;
+        Date.now = VanillaDate.now;
         export const setTimeout = (callback: Function, wait?: number, ...args: any) => vanillaSetTimeout
         (
             callback,
@@ -489,7 +495,7 @@ module EvilTimer
         ?.filter(i => i.startsWith("evil-timer="))
         ?.map(i => JSON.parse(decodeURIComponent(i.substr("evil-timer=".length))))
         ?.[0];
-    const evilTimerConfig = (configFromUrl ?? gThis.evilTimerConfig) as EvilTimerConfigType;
+    const evilTimerConfig = (configFromUrl ?? (gThis as any).evilTimerConfig) as EvilTimerConfigType;
     if (false !== evilTimerConfig && ! evilTimerConfig?.disabled)
     {
         set(true);
