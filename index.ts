@@ -495,17 +495,15 @@ module EvilTimer
         ?.filter(i => i.startsWith("evil-timer="))
         ?.map(i => JSON.parse(decodeURIComponent(i.substr("evil-timer=".length))))
         ?.[0];
-    const evilTimerConfig = (configFromUrl ?? (gThis as any).evilTimerConfig) as EvilTimerConfigType;
-    if (false !== evilTimerConfig && ! evilTimerConfig?.disabled)
+    const configOrBoolean = (configFromUrl ?? (gThis as any).evilTimerConfig ?? true) as EvilTimerConfigType | boolean;
+    const evilTimerConfig: EvilTimerConfigType = "boolean" === typeof configOrBoolean ? { disabled: ! configOrBoolean, }: configOrBoolean;
+    if ( ! (evilTimerConfig.disabled ?? false))
     {
         set(true);
-        if ( ! evilTimerConfig?.disabledLoadMessage)
+        if ( ! (evilTimerConfig.disabledLoadMessage ?? false))
         {
             console.log("evil-timer.js is loaded. You can use EvilTimer commands with your own risk. see: https://github.com/wraith13/evil-timer.js");
         }
-        if (evilTimerConfig)
-        {
-            EvilTimer.set(evilTimerConfig);
-        }
+        EvilTimer.set(evilTimerConfig);
     }
 }

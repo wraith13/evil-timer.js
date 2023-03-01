@@ -9,7 +9,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
 };
 var EvilTimer;
 (function (EvilTimer) {
-    var _a, _b, _c, _d, _e;
+    var _a, _b, _c, _d, _e, _f, _g, _h;
     var gThis = ((_a = self !== null && self !== void 0 ? self : window) !== null && _a !== void 0 ? _a : global);
     var VanillaDate = Date;
     var vanillaSetTimeout = setTimeout;
@@ -128,8 +128,8 @@ var EvilTimer;
         static now = () => new EvilDateBody().getTime();
     }
     */
-    EvilTimer.EvilDate = function _f() {
-        var _newTarget = this && this instanceof _f ? this.constructor : void 0;
+    EvilTimer.EvilDate = function _j() {
+        var _newTarget = this && this instanceof _j ? this.constructor : void 0;
         var args = [];
         for (var _i = 0; _i < arguments.length; _i++) {
             args[_i] = arguments[_i];
@@ -183,9 +183,9 @@ var EvilTimer;
             originalEmbeddedStyles = styles.map(function (i) { return i.innerHTML; });
         }
         styles.forEach(function (i, ix) {
-            var _a;
-            if (hasTimer((_a = originalEmbeddedStyles[ix]) !== null && _a !== void 0 ? _a : "")) {
-                i.innerHTML = replaceTimer(rate, originalEmbeddedStyles[ix]);
+            var _a, _b;
+            if (hasTimer((_a = originalEmbeddedStyles === null || originalEmbeddedStyles === void 0 ? void 0 : originalEmbeddedStyles[ix]) !== null && _a !== void 0 ? _a : "")) {
+                i.innerHTML = replaceTimer(rate, (_b = originalEmbeddedStyles === null || originalEmbeddedStyles === void 0 ? void 0 : originalEmbeddedStyles[ix]) !== null && _b !== void 0 ? _b : "");
             }
         });
     };
@@ -207,11 +207,12 @@ var EvilTimer;
             });
         }
         styles.forEach(function (stylesheet, ix) {
-            if (null !== originalStyleRules[ix]) {
+            var _a;
+            if (null !== (originalStyleRules === null || originalStyleRules === void 0 ? void 0 : originalStyleRules[ix])) {
                 while (0 < stylesheet.cssRules.length) {
                     stylesheet.deleteRule(0);
                 }
-                originalStyleRules[ix].forEach(function (rule) { return stylesheet.insertRule(replaceTimer(rate, rule)); });
+                (_a = originalStyleRules === null || originalStyleRules === void 0 ? void 0 : originalStyleRules[ix]) === null || _a === void 0 ? void 0 : _a.forEach(function (rule) { return stylesheet.insertRule(replaceTimer(rate, rule)); });
             }
         });
     };
@@ -324,7 +325,7 @@ var EvilTimer;
             else {
                 callback.apply(void 0, args);
             }
-        }, wait / Math.abs(speed));
+        }, undefined === wait ? wait : wait / Math.abs(speed));
     };
     EvilTimer.evilSetInterval = function (callback, wait) {
         var args = [];
@@ -343,7 +344,7 @@ var EvilTimer;
                 pushed = false;
                 callback.apply(void 0, args);
             }
-        }, wait / Math.abs(speed));
+        }, undefined === wait ? wait : wait / Math.abs(speed));
     };
     var Vanilla;
     (function (Vanilla) {
@@ -416,15 +417,14 @@ var EvilTimer;
     var configFromUrl = (_e = (_d = (_c = (_b = location.href
         .split("#")[0]
         .split("?")[1]) === null || _b === void 0 ? void 0 : _b.split("&")) === null || _c === void 0 ? void 0 : _c.filter(function (i) { return i.startsWith("evil-timer="); })) === null || _d === void 0 ? void 0 : _d.map(function (i) { return JSON.parse(decodeURIComponent(i.substr("evil-timer=".length))); })) === null || _e === void 0 ? void 0 : _e[0];
-    var evilTimerConfig = (configFromUrl !== null && configFromUrl !== void 0 ? configFromUrl : gThis.evilTimerConfig);
-    if (false !== evilTimerConfig && !(evilTimerConfig === null || evilTimerConfig === void 0 ? void 0 : evilTimerConfig.disabled)) {
+    var configOrBoolean = ((_f = configFromUrl !== null && configFromUrl !== void 0 ? configFromUrl : gThis.evilTimerConfig) !== null && _f !== void 0 ? _f : true);
+    var evilTimerConfig = "boolean" === typeof configOrBoolean ? { disabled: !configOrBoolean, } : configOrBoolean;
+    if (!((_g = evilTimerConfig.disabled) !== null && _g !== void 0 ? _g : false)) {
         EvilTimer.set(true);
-        if (!(evilTimerConfig === null || evilTimerConfig === void 0 ? void 0 : evilTimerConfig.disabledLoadMessage)) {
+        if (!((_h = evilTimerConfig.disabledLoadMessage) !== null && _h !== void 0 ? _h : false)) {
             console.log("evil-timer.js is loaded. You can use EvilTimer commands with your own risk. see: https://github.com/wraith13/evil-timer.js");
         }
-        if (evilTimerConfig) {
-            EvilTimer.set(evilTimerConfig);
-        }
+        EvilTimer.set(evilTimerConfig);
     }
 })(EvilTimer || (EvilTimer = {}));
 //# sourceMappingURL=index.js.map
