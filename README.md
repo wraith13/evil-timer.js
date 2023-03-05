@@ -10,11 +10,15 @@ evil-timer.js is an auxiliary script for debugging and tuning CSS **with your ow
 
 Must be loaded before `Date`, `setTimeout`, `setInterval` are used.
 
-## Pseudo vanilla objects
+## Alternate vanilla objects
 
-- `EvilTimer.Vanilla.Date` is pseudo vanilla Date.
-- `EvilTimer.Vanilla.setTimeout` is pseudo vanilla setTimeout.
-- `EvilTimer.Vanilla.setInteral` is pseudo vanilla setInterval.
+evil-timer.js replaces Date, setTimeout, setInteral with their own implementations.
+
+If you want to use the original Date, setTimeout, setInteral functionality, use the following.
+
+- `EvilTimer.Vanilla.Date`
+- `EvilTimer.Vanilla.setTimeout`
+- `EvilTimer.Vanilla.setInteral`
 
 ## Commands
 
@@ -25,7 +29,7 @@ You can use the following commands from the console of your web browser.
 on Web browser JavaScript console
 
 ```javascript
-EvilTimer.set(false); // Diable EvilTimer
+EvilTimer.set(false); // Disable EvilTimer
 EvilTimer.set(true); // Enable EvilTimer
 EvilTimer.set({ disabled: true, }); // Same EvilTimer.set(false);
 EvilTimer.set({ disabled: false, }); // Same EvilTimer.set(true);
@@ -48,7 +52,7 @@ on HTML
 
 ```html
 <script>
-const evilTimerConfig = false;
+const evilTimerConfig = false; // Disable EvilTimer
 </script>
 <script src="https://wraith13.github.io/evil-timer.js/index.js"></script>
 ```
