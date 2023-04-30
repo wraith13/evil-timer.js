@@ -2,6 +2,8 @@
 
 evil-timer.js は**あなた自身の責任**において利用できるデバッグや CSS 調整の為の補助的なスクリプトです。
 
+- [🇬🇧 English README](./README.md)
+
 ## 組み込み方
 
 ```html

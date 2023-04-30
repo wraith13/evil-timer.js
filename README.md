@@ -2,6 +2,8 @@
 
 evil-timer.js is an auxiliary script for debugging and tuning CSS **with your own risk**.
 
+- [🇯🇵 日本語 README](./README.ja.md)
+
 ## How to embed
 
 ```html
