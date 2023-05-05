@@ -356,9 +356,16 @@ module EvilTimer
     };
     export const setSpeed = (rate: number) =>
     {
-        setAnkerAt();
-        speed = rate;
-        updateStyle();
+        if (0 == rate)
+        {
+            pause();
+        }
+        else
+        {
+            setAnkerAt();
+            speed = rate;
+            updateStyle();
+        }
     };
     export const evilSetTimeout = (callback: Function, wait?: number, ...args: any) => vanillaSetTimeout
     (

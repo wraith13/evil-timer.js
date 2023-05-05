@@ -181,6 +181,12 @@ EvilTimer.setSpeed(0.5);
 
 `setTimeout`、`setInterval`、`Date`、CSS(`animation-duration`, `animation-delay`, `transition-duration`, `transition-delay`)のスピードを半分にします。
 
+```javascript
+EvilTimer.setSpeed(0);
+```
+
+`EvilTimer.pause()` が呼びされます。
+
 ### EvilTimer.setStyleReplaceMode()
 
 この機能は試験的な機能であり、有効に機能する範囲は限定的です。

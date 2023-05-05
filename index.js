@@ -309,9 +309,14 @@ var EvilTimer;
         }
     };
     EvilTimer.setSpeed = function (rate) {
-        setAnkerAt();
-        speed = rate;
-        updateStyle();
+        if (0 == rate) {
+            EvilTimer.pause();
+        }
+        else {
+            setAnkerAt();
+            speed = rate;
+            updateStyle();
+        }
     };
     EvilTimer.evilSetTimeout = function (callback, wait) {
         var args = [];

@@ -181,6 +181,12 @@ EvilTimer.setSpeed(0.5);
 
 Halve the speed of `setTimeout`, `setInterval`, `Date`, CSS(`animation-duration`, `animation-delay`, `transition-duration`, `transition-delay`).
 
+```javascript
+EvilTimer.setSpeed(0);
+```
+
+`EvilTimer.pause()` is called.
+
 ### EvilTimer.setStyleReplaceMode()
 
 This feature is an experimental feature and has limited usefulness.
