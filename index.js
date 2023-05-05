@@ -174,7 +174,7 @@ var EvilTimer;
     };
     EvilTimer.step = function () {
         var _a;
-        (_a = susppendedTasks.shift) === null || _a === void 0 ? void 0 : _a.call(susppendedTasks);
+        (_a = susppendedTasks.shift()) === null || _a === void 0 ? void 0 : _a();
         return susppendedTasks.length;
     };
     EvilTimer.allStep = function () {

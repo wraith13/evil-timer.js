@@ -187,7 +187,7 @@ module EvilTimer
     };
     export const step = () =>
     {
-        susppendedTasks.shift?.();
+        susppendedTasks.shift()?.();
         return susppendedTasks.length;
     };
     export const allStep = () =>
