@@ -170,8 +170,16 @@ var EvilTimer;
     EvilTimer.unpause = function () {
         setAnkerAt();
         isPaused = false;
-        susppendedTasks.forEach(function (i) { return i(); });
-        susppendedTasks = [];
+        EvilTimer.allStep();
+    };
+    EvilTimer.step = function () {
+        var _a;
+        (_a = susppendedTasks.shift) === null || _a === void 0 ? void 0 : _a.call(susppendedTasks);
+        return susppendedTasks.length;
+    };
+    EvilTimer.allStep = function () {
+        while (0 < EvilTimer.step())
+            ;
     };
     var styleTimerRegExp = /((?:animation|transition)(?:-duration|-delay)?\s*:)([\+\-0-9A-Za-z.\s]+);/gmu;
     var hasTimer = function (css) { return styleTimerRegExp.test(css); };

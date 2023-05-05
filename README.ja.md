@@ -157,6 +157,22 @@ EvilTimer.unpause();
 
 `setTimeout` タスク と `setInterval` タスク と `Date` の停止状態を解除します。 ( `EvilTimer.pause()` による時間停止状態を解除します。停止していた時間分、 `new Date()` の指し示す時刻は遅れたままになります。 )
 
+### EvilTimer.step()
+
+```javascript
+EvilTimer.step();
+```
+
+`EvilTimer.pause()` によってサスペンドされてる先頭のタスクを１つ実行し、残りのサスペンドされてるタスクの数を返します。
+
+### EvilTimer.allStep()
+
+```javascript
+EvilTimer.allStep();
+```
+
+`EvilTimer.pause()` によってサスペンドされてるタスクを全て実行します。
+
 ### EvilTimer.restore()
 
 ```javascript

@@ -157,6 +157,22 @@ EvilTimer.unpause();
 
 Unpause those `setTimeout` tasks and `setInterval` tasks and `Date`. ( Release the time stop by `EvilTimer.pause()`. The time indicated by `new Date()` remains delayed by the amount of time that the time was stopped. )
 
+### EvilTimer.step()
+
+```javascript
+EvilTimer.step();
+```
+
+Executes the first task suspended by `EvilTimer.pause()` and returns the number of remaining suspended tasks.
+
+### EvilTimer.allStep()
+
+```javascript
+EvilTimer.allStep();
+```
+
+Executes all tasks suspended by `EvilTimer.pause()`.
+
 ### EvilTimer.restore()
 
 ```javascript

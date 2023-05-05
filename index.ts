@@ -183,8 +183,16 @@ module EvilTimer
     {
         setAnkerAt();
         isPaused = false;
-        susppendedTasks.forEach(i => i());
-        susppendedTasks = [];
+        allStep();
+    };
+    export const step = () =>
+    {
+        susppendedTasks.shift?.();
+        return susppendedTasks.length;
+    };
+    export const allStep = () =>
+    {
+        while(0 < step());
     };
     const styleTimerRegExp = /((?:animation|transition)(?:-duration|-delay)?\s*:)([\+\-0-9A-Za-z.\s]+);/gmu;
     const hasTimer = (css: string) => styleTimerRegExp.test(css);
