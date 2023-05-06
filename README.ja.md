@@ -161,6 +161,7 @@ EvilTimer.unpause();
 
 ```javascript
 EvilTimer.step();
+EvilTimer.step(2); // === EvilTimer.step(); EvilTimer.step();
 ```
 
 `EvilTimer.pause()` によってサスペンドされてる先頭のタスクを１つ実行し、残りのサスペンドされてるタスクの数を返します。

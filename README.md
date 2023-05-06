@@ -161,6 +161,7 @@ Unpause those `setTimeout` tasks and `setInterval` tasks and `Date`. ( Release t
 
 ```javascript
 EvilTimer.step();
+EvilTimer.step(2); // === EvilTimer.step(); EvilTimer.step();
 ```
 
 Executes the first task suspended by `EvilTimer.pause()` and returns the number of remaining suspended tasks.

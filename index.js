@@ -172,13 +172,16 @@ var EvilTimer;
         isPaused = false;
         EvilTimer.allStep();
     };
-    EvilTimer.step = function () {
+    EvilTimer.step = function (count) {
         var _a;
-        (_a = susppendedTasks.shift()) === null || _a === void 0 ? void 0 : _a();
+        if (count === void 0) { count = 1; }
+        for (var i = 0; i < count; ++i) {
+            (_a = susppendedTasks.shift()) === null || _a === void 0 ? void 0 : _a();
+        }
         return susppendedTasks.length;
     };
     EvilTimer.allStep = function () {
-        while (0 < EvilTimer.step())
+        while (0 < EvilTimer.step(susppendedTasks.length))
             ;
     };
     var styleTimerRegExp = /((?:animation|transition)(?:-duration|-delay)?\s*:)([\+\-0-9A-Za-z.\s]+);/gmu;

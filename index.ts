@@ -185,14 +185,17 @@ module EvilTimer
         isPaused = false;
         allStep();
     };
-    export const step = () =>
+    export const step = (count: number = 1) =>
     {
-        susppendedTasks.shift()?.();
+        for(let i = 0; i < count; ++i)
+        {
+            susppendedTasks.shift()?.();
+        }
         return susppendedTasks.length;
     };
     export const allStep = () =>
     {
-        while(0 < step());
+        while(0 < step(susppendedTasks.length));
     };
     const styleTimerRegExp = /((?:animation|transition)(?:-duration|-delay)?\s*:)([\+\-0-9A-Za-z.\s]+);/gmu;
     const hasTimer = (css: string) => styleTimerRegExp.test(css);
