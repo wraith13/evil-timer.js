@@ -172,7 +172,15 @@ EvilTimer.step(2); // === EvilTimer.step(); EvilTimer.step();
 EvilTimer.allStep();
 ```
 
-`EvilTimer.pause()` によってサスペンドされてるタスクを全て実行します。
+`EvilTimer.pause()` によってサスペンドされてるタスクを全て実行します。処理中に新たにサスペンドされたタスクは実行しません。
+
+### EvilTimer.stepOut()
+
+```javascript
+EvilTimer.allStep();
+```
+
+`EvilTimer.pause()` によってサスペンドされてるタスクを全て実行します。処理中に新たにサスペンドされたタスクも実行します。
 
 ### EvilTimer.restore()
 

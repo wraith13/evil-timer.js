@@ -172,7 +172,15 @@ Executes the first task suspended by `EvilTimer.pause()` and returns the number 
 EvilTimer.allStep();
 ```
 
-Executes all tasks suspended by `EvilTimer.pause()`.
+Executes all tasks suspended by `EvilTimer.pause()`. It does not execute newly suspended tasks during processing.
+
+### EvilTimer.stepOut()
+
+```javascript
+EvilTimer.allStep();
+```
+
+Executes all tasks suspended by `EvilTimer.pause()`. It executes newly suspended tasks during processing.
 
 ### EvilTimer.restore()
 

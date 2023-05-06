@@ -181,7 +181,10 @@ var EvilTimer;
         return susppendedTasks.length;
     };
     EvilTimer.allStep = function () {
-        while (0 < EvilTimer.step(susppendedTasks.length))
+        EvilTimer.step(susppendedTasks.length);
+    };
+    EvilTimer.stepOut = function () {
+        while (0 < EvilTimer.step())
             ;
     };
     var styleTimerRegExp = /((?:animation|transition)(?:-duration|-delay)?\s*:)([\+\-0-9A-Za-z.\s]+);/gmu;

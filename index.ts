@@ -195,7 +195,11 @@ module EvilTimer
     };
     export const allStep = () =>
     {
-        while(0 < step(susppendedTasks.length));
+        step(susppendedTasks.length);
+    };
+    export const stepOut = () =>
+    {
+        while(0 < step());
     };
     const styleTimerRegExp = /((?:animation|transition)(?:-duration|-delay)?\s*:)([\+\-0-9A-Za-z.\s]+);/gmu;
     const hasTimer = (css: string) => styleTimerRegExp.test(css);
