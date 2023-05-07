@@ -170,7 +170,7 @@ var EvilTimer;
     EvilTimer.unpause = function () {
         setAnkerAt();
         isPaused = false;
-        EvilTimer.allStep();
+        EvilTimer.stepAll();
     };
     EvilTimer.step = function (count) {
         var _a;
@@ -180,7 +180,7 @@ var EvilTimer;
         }
         return susppendedTasks.length;
     };
-    EvilTimer.allStep = function () {
+    EvilTimer.stepAll = function () {
         EvilTimer.step(susppendedTasks.length);
     };
     EvilTimer.stepOut = function () {

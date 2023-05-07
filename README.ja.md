@@ -166,10 +166,10 @@ EvilTimer.step(2); // === EvilTimer.step(); EvilTimer.step();
 
 `EvilTimer.pause()` によってサスペンドされてる先頭のタスクを１つ実行し、残りのサスペンドされてるタスクの数を返します。
 
-### EvilTimer.allStep()
+### EvilTimer.stepAll()
 
 ```javascript
-EvilTimer.allStep();
+EvilTimer.stepAll();
 ```
 
 `EvilTimer.pause()` によってサスペンドされてるタスクを全て実行します。処理中に新たにサスペンドされたタスクは実行しません。

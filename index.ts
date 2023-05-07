@@ -183,7 +183,7 @@ module EvilTimer
     {
         setAnkerAt();
         isPaused = false;
-        allStep();
+        stepAll();
     };
     export const step = (count: number = 1) =>
     {
@@ -193,7 +193,7 @@ module EvilTimer
         }
         return susppendedTasks.length;
     };
-    export const allStep = () =>
+    export const stepAll = () =>
     {
         step(susppendedTasks.length);
     };
