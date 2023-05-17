@@ -1,6 +1,6 @@
 # evil-timer.js
 
-evil-timer.js is an auxiliary script for debugging and tuning CSS **with your own risk**.
+evil-timer.js is an auxiliary script for JavaScript debugging and tuning CSS **with your own risk**.
 
 - [🇯🇵 日本語 README](./README.ja.md)
 
@@ -125,6 +125,8 @@ EvilTimer.setDateMode("evil"); // Date is EvilDate
 EvilTimer.setDateMode("vanilla"); // Date is vanilla Date
 ```
 
+Switch implementation of Date class. The system original Date class is used by ```EvilTimer.setDateMode("vanilla");```, custom Date class of evil-timer.js is used by ```EvilTimer.setDateMode("evil");```. Normally, there is no need to toggle this setting. see **Alternate vanilla objects**
+
 ### EvilTimer.setDate()
 
 ```javascript
@@ -135,11 +137,15 @@ EvilTimer.setDate(true); // Same EvilTimer.setDateMode("evil");
 EvilTimer.setDate(false); // Same EvilTimer.setDateMode("vanilla");
 ```
 
+Sets the current date and time returned by `new Date()`. If it is not in `puase` state, time automatically passes according to `speed`.
+
 ### EvilTimer.resetDate()
 
 ```javascript
 EvilTimer.resetDate();
 ```
+
+Sets the current date and time returned by `new Date()` to system time. If it is not in `puase` state, time automatically passes according to `speed`.
 
 ### EvilTimer.pause()
 
