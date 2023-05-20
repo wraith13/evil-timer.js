@@ -6,6 +6,8 @@ evil-timer.js は**あなた自身の責任**において利用できる JavaScr
 
 ## 組み込み方
 
+HTMLの `head` タグ内で次のような記述を行ってください。( JavaScript ファイルをコピーして中身を直接 HTML ファイルに埋め込んでも構いません。 )
+
 ```html
 <script src="https://wraith13.github.io/evil-timer.js/index.js"></script>
 ```
@@ -183,7 +185,7 @@ EvilTimer.stepAll();
 ### EvilTimer.stepOut()
 
 ```javascript
-EvilTimer.allStep();
+EvilTimer.stepOut();
 ```
 
 `EvilTimer.pause()` によってサスペンドされてるタスクを全て実行します。処理中に新たにサスペンドされたタスクも実行します。

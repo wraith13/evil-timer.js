@@ -6,6 +6,8 @@ evil-timer.js is an auxiliary script for JavaScript debugging and tuning CSS **w
 
 ## How to embed
 
+Write as follows in the `head` tag of HTML. ( You can also copy the JavaScript file and embed the contents directly into the HTML file. )
+
 ```html
 <script src="https://wraith13.github.io/evil-timer.js/index.js"></script>
 ```
@@ -183,7 +185,7 @@ Executes all tasks suspended by `EvilTimer.pause()`. It does not execute newly s
 ### EvilTimer.stepOut()
 
 ```javascript
-EvilTimer.allStep();
+EvilTimer.stepOut();
 ```
 
 Executes all tasks suspended by `EvilTimer.pause()`. It executes newly suspended tasks during processing.
