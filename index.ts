@@ -183,7 +183,7 @@ module EvilTimer
     {
         setAnkerAt();
         isPaused = false;
-        stepAll();
+        stepOut();
     };
     export const step = (count: number = 1) =>
     {
