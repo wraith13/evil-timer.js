@@ -27,6 +27,7 @@ module EvilTimer
     let originalStyleRules:(string[] | null)[] | null = null;
     // let originalStyleSheets:string[] = null;
     let speed = 1;
+    const isRegularSpeed = () => 1 === speed;
     let isPaused = false;
     let susppendedTasks = <(()=>unknown)[]>[];
     let ankerAt =
@@ -47,10 +48,10 @@ module EvilTimer
         vanilla: getVanillaNow(),
         evil: evil ?? getEvilNow(),
     };
-    const resetAnkerAt = () => ankerAt =
+    const resetAnkerAt = (vanilla: number) => ankerAt =
     {
-        vanilla: 0,
-        evil: 0,
+        vanilla,
+        evil: vanilla,
     };
     /*
     remain for support to timezone and locale.
@@ -167,12 +168,12 @@ module EvilTimer
             );
         }
     };
-    export const resetDate = () => setAnkerAt(getVanillaNow());
+    export const resetDate = () => resetAnkerAt(isRegularSpeed() ? 0: getVanillaNow());
     export const restore = () =>
     {
         setSpeed(1.0);
         unpause();
-        resetAnkerAt();
+        resetAnkerAt(0);
     };
     export const pause = () =>
     {

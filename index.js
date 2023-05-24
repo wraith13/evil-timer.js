@@ -31,6 +31,7 @@ var EvilTimer;
     var originalStyleRules = null;
     // let originalStyleSheets:string[] = null;
     var speed = 1;
+    var isRegularSpeed = function () { return 1 === speed; };
     var isPaused = false;
     var susppendedTasks = [];
     var ankerAt = {
@@ -49,10 +50,10 @@ var EvilTimer;
             vanilla: EvilTimer.getVanillaNow(),
             evil: evil !== null && evil !== void 0 ? evil : EvilTimer.getEvilNow(),
         }; };
-    var resetAnkerAt = function () { return ankerAt =
+    var resetAnkerAt = function (vanilla) { return ankerAt =
         {
-            vanilla: 0,
-            evil: 0,
+            vanilla: vanilla,
+            evil: vanilla,
         }; };
     /*
     remain for support to timezone and locale.
@@ -157,11 +158,11 @@ var EvilTimer;
                     date.getTime());
         }
     };
-    EvilTimer.resetDate = function () { return setAnkerAt(EvilTimer.getVanillaNow()); };
+    EvilTimer.resetDate = function () { return resetAnkerAt(isRegularSpeed() ? 0 : EvilTimer.getVanillaNow()); };
     EvilTimer.restore = function () {
         EvilTimer.setSpeed(1.0);
         EvilTimer.unpause();
-        resetAnkerAt();
+        resetAnkerAt(0);
     };
     EvilTimer.pause = function () {
         setAnkerAt();
@@ -170,7 +171,7 @@ var EvilTimer;
     EvilTimer.unpause = function () {
         setAnkerAt();
         isPaused = false;
-        EvilTimer.stepAll();
+        EvilTimer.stepOut();
     };
     EvilTimer.step = function (count) {
         var _a;
