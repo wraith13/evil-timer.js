@@ -48,7 +48,7 @@ module EvilTimer
         vanilla: getVanillaNow(),
         evil: evil ?? getEvilNow(),
     };
-    const resetAnkerAt = (vanilla: number) => ankerAt =
+    const resetAnkerAt = (vanilla: number = isRegularSpeed() ? 0: getVanillaNow()) => ankerAt =
     {
         vanilla,
         evil: vanilla,
@@ -168,12 +168,12 @@ module EvilTimer
             );
         }
     };
-    export const resetDate = () => resetAnkerAt(isRegularSpeed() ? 0: getVanillaNow());
+    export const resetDate = () => resetAnkerAt();
     export const restore = () =>
     {
-        setSpeed(1.0);
+        setSpeed(1);
         unpause();
-        resetAnkerAt(0);
+        resetAnkerAt();
     };
     export const pause = () =>
     {

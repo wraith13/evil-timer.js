@@ -50,11 +50,14 @@ var EvilTimer;
             vanilla: EvilTimer.getVanillaNow(),
             evil: evil !== null && evil !== void 0 ? evil : EvilTimer.getEvilNow(),
         }; };
-    var resetAnkerAt = function (vanilla) { return ankerAt =
-        {
-            vanilla: vanilla,
-            evil: vanilla,
-        }; };
+    var resetAnkerAt = function (vanilla) {
+        if (vanilla === void 0) { vanilla = isRegularSpeed() ? 0 : EvilTimer.getVanillaNow(); }
+        return ankerAt =
+            {
+                vanilla: vanilla,
+                evil: vanilla,
+            };
+    };
     /*
     remain for support to timezone and locale.
     class EvilDateBody
@@ -158,11 +161,11 @@ var EvilTimer;
                     date.getTime());
         }
     };
-    EvilTimer.resetDate = function () { return resetAnkerAt(isRegularSpeed() ? 0 : EvilTimer.getVanillaNow()); };
+    EvilTimer.resetDate = function () { return resetAnkerAt(); };
     EvilTimer.restore = function () {
-        EvilTimer.setSpeed(1.0);
+        EvilTimer.setSpeed(1);
         EvilTimer.unpause();
-        resetAnkerAt(0);
+        resetAnkerAt();
     };
     EvilTimer.pause = function () {
         setAnkerAt();
