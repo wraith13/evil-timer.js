@@ -511,6 +511,29 @@ module EvilTimer
             }
         }
     };
+    export const getStatus = () =>
+    {
+        const vanilla = new VanillaDate();
+        const evil = new EvilDate();
+        const result =
+        {
+            enabled: gThis.EvilTimer === EvilTimer,
+            speed,
+            isPaused,
+            susppendedTasksCount: susppendedTasks.length,
+            vanilla:
+            {
+                text: vanilla.toLocaleString(),
+                tick: vanilla.getTime(),
+            },
+            evil:
+            {
+                text: evil.toLocaleString(),
+                tick: evil.getTime(),
+            },
+        }
+        return result;
+    };
     const getConfigFromUrl = () =>
     {
         try

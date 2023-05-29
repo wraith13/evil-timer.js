@@ -437,6 +437,25 @@ var EvilTimer;
             }
         }
     };
+    EvilTimer.getStatus = function () {
+        var vanilla = new VanillaDate();
+        var evil = new EvilTimer.EvilDate();
+        var result = {
+            enabled: gThis.EvilTimer === EvilTimer,
+            speed: speed,
+            isPaused: isPaused,
+            susppendedTasksCount: susppendedTasks.length,
+            vanilla: {
+                text: vanilla.toLocaleString(),
+                tick: vanilla.getTime(),
+            },
+            evil: {
+                text: evil.toLocaleString(),
+                tick: evil.getTime(),
+            },
+        };
+        return result;
+    };
     var getConfigFromUrl = function () {
         var _a, _b, _c, _d;
         try {
