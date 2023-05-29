@@ -511,13 +511,25 @@ module EvilTimer
             }
         }
     };
-    const configFromUrl = location.href
-        .split("#")[0]
-        .split("?")[1]
-        ?.split("&")
-        ?.filter(i => i.startsWith("evil-timer="))
-        ?.map(i => JSON.parse(decodeURIComponent(i.substr("evil-timer=".length))))
-        ?.[0];
+    const getConfigFromUrl = () =>
+    {
+        try
+        {
+            return location.href
+                .split("#")[0]
+                .split("?")[1]
+                ?.split("&")
+                ?.filter(i => i.startsWith("evil-timer="))
+                ?.map(i => JSON.parse(decodeURIComponent(i.substr("evil-timer=".length))))
+                ?.[0];
+        }
+        catch(err)
+        {
+            console.log(err);
+            return null;
+        }
+    };
+    const configFromUrl = getConfigFromUrl();
     const configOrBoolean = (configFromUrl ?? (gThis as any).evilTimerConfig ?? true) as EvilTimerConfigType | boolean;
     const evilTimerConfig: EvilTimerConfigType = "boolean" === typeof configOrBoolean ? { disabled: ! configOrBoolean, }: configOrBoolean;
     if ( ! (evilTimerConfig.disabled ?? false))

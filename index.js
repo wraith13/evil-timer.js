@@ -9,7 +9,7 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
 };
 var EvilTimer;
 (function (EvilTimer) {
-    var _a, _b, _c, _d, _e, _f, _g, _h;
+    var _a, _b, _c, _d;
     var gThis = ((_a = self !== null && self !== void 0 ? self : window) !== null && _a !== void 0 ? _a : global);
     var VanillaDate = Date;
     var vanillaSetTimeout = setTimeout;
@@ -132,8 +132,8 @@ var EvilTimer;
         static now = () => new EvilDateBody().getTime();
     }
     */
-    EvilTimer.EvilDate = function _j() {
-        var _newTarget = this && this instanceof _j ? this.constructor : void 0;
+    EvilTimer.EvilDate = function _e() {
+        var _newTarget = this && this instanceof _e ? this.constructor : void 0;
         var args = [];
         for (var _i = 0; _i < arguments.length; _i++) {
             args[_i] = arguments[_i];
@@ -437,14 +437,24 @@ var EvilTimer;
             }
         }
     };
-    var configFromUrl = (_e = (_d = (_c = (_b = location.href
-        .split("#")[0]
-        .split("?")[1]) === null || _b === void 0 ? void 0 : _b.split("&")) === null || _c === void 0 ? void 0 : _c.filter(function (i) { return i.startsWith("evil-timer="); })) === null || _d === void 0 ? void 0 : _d.map(function (i) { return JSON.parse(decodeURIComponent(i.substr("evil-timer=".length))); })) === null || _e === void 0 ? void 0 : _e[0];
-    var configOrBoolean = ((_f = configFromUrl !== null && configFromUrl !== void 0 ? configFromUrl : gThis.evilTimerConfig) !== null && _f !== void 0 ? _f : true);
+    var getConfigFromUrl = function () {
+        var _a, _b, _c, _d;
+        try {
+            return (_d = (_c = (_b = (_a = location.href
+                .split("#")[0]
+                .split("?")[1]) === null || _a === void 0 ? void 0 : _a.split("&")) === null || _b === void 0 ? void 0 : _b.filter(function (i) { return i.startsWith("evil-timer="); })) === null || _c === void 0 ? void 0 : _c.map(function (i) { return JSON.parse(decodeURIComponent(i.substr("evil-timer=".length))); })) === null || _d === void 0 ? void 0 : _d[0];
+        }
+        catch (err) {
+            console.log(err);
+            return null;
+        }
+    };
+    var configFromUrl = getConfigFromUrl();
+    var configOrBoolean = ((_b = configFromUrl !== null && configFromUrl !== void 0 ? configFromUrl : gThis.evilTimerConfig) !== null && _b !== void 0 ? _b : true);
     var evilTimerConfig = "boolean" === typeof configOrBoolean ? { disabled: !configOrBoolean, } : configOrBoolean;
-    if (!((_g = evilTimerConfig.disabled) !== null && _g !== void 0 ? _g : false)) {
+    if (!((_c = evilTimerConfig.disabled) !== null && _c !== void 0 ? _c : false)) {
         EvilTimer.set(true);
-        if (!((_h = evilTimerConfig.disabledLoadMessage) !== null && _h !== void 0 ? _h : false)) {
+        if (!((_d = evilTimerConfig.disabledLoadMessage) !== null && _d !== void 0 ? _d : false)) {
             console.log("evil-timer.js is loaded. You can use EvilTimer commands with your own risk. see: https://github.com/wraith13/evil-timer.js");
         }
         EvilTimer.set(evilTimerConfig);
