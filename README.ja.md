@@ -226,7 +226,7 @@ EvilTimer.setSpeed(0);
 
 default: "disabled"
 
-|mode|説明|
+|モード|説明|
 |---|---|
 |`auto`|linkタグによるスタイル指定が無い場合に `embedded` 扱いになり、そうでない場合は `rules` 扱いになります。|
 |`disabled`|CSSのスピードコントロールを行いません。|
@@ -247,6 +247,32 @@ EvilTimer.setStyleReplaceMode("embedded");
 
 ```javascript
 EvilTimer.setStyleReplaceMode("rules");
+```
+
+### EvilTimer.getStatus()
+
+次のような JSON を返します。
+
+```json
+{
+    "enabled": true,
+    "speed": 1000,
+    "isPaused": true,
+    "susppendedTasksCount": 2,
+    "date":
+    {
+        "vanilla":
+        {
+            "text": "2023/5/29 23:54:41",
+            "tick": 1685372081785
+        },
+        "evil":
+        {
+            "text": "2023/5/31 16:06:07",
+            "tick": 1685516767640
+        }
+    }
+}
 ```
 
 ## 代替 vanilla オブジェクト

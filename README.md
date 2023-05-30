@@ -226,7 +226,7 @@ This feature is an experimental feature and has limited usefulness.
 
 default: "disabled"
 
-|mode|説明|
+|mode|description|
 |---|---|
 |`auto`|If there is no style specified by the link tag, it will be treated as `embedded`, otherwise it will be treated as `rules`.|
 |`disabled`|No CSS speed control.|
@@ -247,6 +247,32 @@ EvilTimer.setStyleReplaceMode("embedded");
 
 ```javascript
 EvilTimer.setStyleReplaceMode("rules");
+```
+
+### EvilTimer.getStatus()
+
+It returns JSON like this:
+
+```json
+{
+    "enabled": true,
+    "speed": 1000,
+    "isPaused": true,
+    "susppendedTasksCount": 2,
+    "date":
+    {
+        "vanilla":
+        {
+            "text": "2023/5/29 23:54:41",
+            "tick": 1685372081785
+        },
+        "evil":
+        {
+            "text": "2023/5/31 16:06:07",
+            "tick": 1685516767640
+        }
+    }
+}
 ```
 
 ## Alternate vanilla objects
