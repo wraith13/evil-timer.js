@@ -521,16 +521,19 @@ module EvilTimer
             speed,
             isPaused,
             susppendedTasksCount: susppendedTasks.length,
-            vanilla:
+            date:
             {
-                text: vanilla.toLocaleString(),
-                tick: vanilla.getTime(),
-            },
-            evil:
-            {
-                text: evil.toLocaleString(),
-                tick: evil.getTime(),
-            },
+                vanilla:
+                {
+                    text: vanilla.toLocaleString(),
+                    tick: vanilla.getTime(),
+                },
+                evil:
+                {
+                    text: evil.toLocaleString(),
+                    tick: evil.getTime(),
+                }
+            }
         }
         return result;
     };

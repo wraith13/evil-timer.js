@@ -445,14 +445,16 @@ var EvilTimer;
             speed: speed,
             isPaused: isPaused,
             susppendedTasksCount: susppendedTasks.length,
-            vanilla: {
-                text: vanilla.toLocaleString(),
-                tick: vanilla.getTime(),
-            },
-            evil: {
-                text: evil.toLocaleString(),
-                tick: evil.getTime(),
-            },
+            date: {
+                vanilla: {
+                    text: vanilla.toLocaleString(),
+                    tick: vanilla.getTime(),
+                },
+                evil: {
+                    text: evil.toLocaleString(),
+                    tick: evil.getTime(),
+                }
+            }
         };
         return result;
     };
