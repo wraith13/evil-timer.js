@@ -446,6 +446,7 @@ var EvilTimer;
         var evil = new EvilTimer.EvilDate();
         var result = {
             enabled: gThis.EvilTimer === EvilTimer,
+            debug: EvilTimer.isDebug(),
             speed: speed,
             isPaused: isPaused,
             susppendedTasksCount: susppendedTasks.length,

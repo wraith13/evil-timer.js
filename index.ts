@@ -523,6 +523,7 @@ module EvilTimer
         const result =
         {
             enabled: gThis.EvilTimer === EvilTimer,
+            debug: isDebug(),
             speed,
             isPaused,
             susppendedTasksCount: susppendedTasks.length,
