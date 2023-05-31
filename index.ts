@@ -455,6 +455,7 @@ module EvilTimer
     export type EvilTimerConfigType =
     {
         disabled?: boolean;
+        debug?: boolean;
         disabledLoadMessage?: boolean;
         date?: Date | number | string | boolean;
         speed?: number;
@@ -511,6 +512,10 @@ module EvilTimer
             }
         }
     };
+    export const debugKey = "evil-timer.debug";
+    export const isDebug = () => JSON.parse(window.localStorage.getItem(debugKey) ?? "false") as boolean;
+    export const debugOn = () => window.localStorage.setItem(debugKey, JSON.stringify(true));
+    export const debugOff = () => window.localStorage.removeItem(debugKey);
     export const getStatus = () =>
     {
         const vanilla = new VanillaDate();
@@ -539,22 +544,37 @@ module EvilTimer
     };
     const getConfigFromUrl = () =>
     {
-        try
+        if (isDebug())
         {
-            return location.href
-                .split("#")[0]
-                .split("?")[1]
-                ?.split("&")
-                ?.filter(i => i.startsWith("evil-timer="))
-                ?.map(i => JSON.parse(decodeURIComponent(i.substr("evil-timer=".length))))
-                ?.[0];
+            try
+            {
+                return location.href
+                    .split("#")[0]
+                    .split("?")[1]
+                    ?.split("&")
+                    ?.filter(i => i.startsWith("evil-timer="))
+                    ?.map(i => JSON.parse(decodeURIComponent(i.substr("evil-timer=".length))))
+                    ?.[0];
+            }
+            catch(err)
+            {
+                console.log(err);
+            }
         }
-        catch(err)
-        {
-            console.log(err);
-            return null;
-        }
+        return null;
     };
+    const globalEvilTimerConfig = (gThis as any).evilTimerConfig as EvilTimerConfigType | boolean | undefined;
+    if ("object" === typeof globalEvilTimerConfig && "boolean" === typeof globalEvilTimerConfig.debug)
+    {
+        if (globalEvilTimerConfig.debug)
+        {
+            debugOn();
+        }
+        else
+        {
+            debugOff();
+        }
+    }
     const configFromUrl = getConfigFromUrl();
     const configOrBoolean = (configFromUrl ?? (gThis as any).evilTimerConfig ?? true) as EvilTimerConfigType | boolean;
     const evilTimerConfig: EvilTimerConfigType = "boolean" === typeof configOrBoolean ? { disabled: ! configOrBoolean, }: configOrBoolean;

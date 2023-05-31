@@ -437,6 +437,10 @@ var EvilTimer;
             }
         }
     };
+    EvilTimer.debugKey = "evil-timer.debug";
+    EvilTimer.isDebug = function () { var _a; return JSON.parse((_a = window.localStorage.getItem(EvilTimer.debugKey)) !== null && _a !== void 0 ? _a : "false"); };
+    EvilTimer.debugOn = function () { return window.localStorage.setItem(EvilTimer.debugKey, JSON.stringify(true)); };
+    EvilTimer.debugOff = function () { return window.localStorage.removeItem(EvilTimer.debugKey); };
     EvilTimer.getStatus = function () {
         var vanilla = new VanillaDate();
         var evil = new EvilTimer.EvilDate();
@@ -460,16 +464,27 @@ var EvilTimer;
     };
     var getConfigFromUrl = function () {
         var _a, _b, _c, _d;
-        try {
-            return (_d = (_c = (_b = (_a = location.href
-                .split("#")[0]
-                .split("?")[1]) === null || _a === void 0 ? void 0 : _a.split("&")) === null || _b === void 0 ? void 0 : _b.filter(function (i) { return i.startsWith("evil-timer="); })) === null || _c === void 0 ? void 0 : _c.map(function (i) { return JSON.parse(decodeURIComponent(i.substr("evil-timer=".length))); })) === null || _d === void 0 ? void 0 : _d[0];
+        if (EvilTimer.isDebug()) {
+            try {
+                return (_d = (_c = (_b = (_a = location.href
+                    .split("#")[0]
+                    .split("?")[1]) === null || _a === void 0 ? void 0 : _a.split("&")) === null || _b === void 0 ? void 0 : _b.filter(function (i) { return i.startsWith("evil-timer="); })) === null || _c === void 0 ? void 0 : _c.map(function (i) { return JSON.parse(decodeURIComponent(i.substr("evil-timer=".length))); })) === null || _d === void 0 ? void 0 : _d[0];
+            }
+            catch (err) {
+                console.log(err);
+            }
         }
-        catch (err) {
-            console.log(err);
-            return null;
-        }
+        return null;
     };
+    var globalEvilTimerConfig = gThis.evilTimerConfig;
+    if ("object" === typeof globalEvilTimerConfig && "boolean" === typeof globalEvilTimerConfig.debug) {
+        if (globalEvilTimerConfig.debug) {
+            EvilTimer.debugOn();
+        }
+        else {
+            EvilTimer.debugOff();
+        }
+    }
     var configFromUrl = getConfigFromUrl();
     var configOrBoolean = ((_b = configFromUrl !== null && configFromUrl !== void 0 ? configFromUrl : gThis.evilTimerConfig) !== null && _b !== void 0 ? _b : true);
     var evilTimerConfig = "boolean" === typeof configOrBoolean ? { disabled: !configOrBoolean, } : configOrBoolean;
