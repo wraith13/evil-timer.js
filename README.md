@@ -249,6 +249,30 @@ EvilTimer.setStyleReplaceMode("embedded");
 EvilTimer.setStyleReplaceMode("rules");
 ```
 
+### EvilTimer.debugOn()
+
+```javascript
+EvilTimer.debugOn();
+```
+
+Turn on debug mode. (URL arguments are enabled.)
+
+### EvilTimer.debugOff()
+
+```javascript
+EvilTimer.debugOff();
+```
+
+Turn off debug mode. (URL arguments are disabled.)
+
+### EvilTimer.isDebug()
+
+```javascript
+EvilTimer.isDebug();
+```
+
+Returns true if debug mode is on, false otherwise.
+
 ### EvilTimer.getStatus()
 
 It returns JSON like this:
@@ -256,6 +280,7 @@ It returns JSON like this:
 ```json
 {
     "enabled": true,
+    "debug": false,
     "speed": 1000,
     "isPaused": true,
     "susppendedTasksCount": 2,

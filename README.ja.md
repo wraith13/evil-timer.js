@@ -249,6 +249,30 @@ EvilTimer.setStyleReplaceMode("embedded");
 EvilTimer.setStyleReplaceMode("rules");
 ```
 
+### EvilTimer.debugOn()
+
+```javascript
+EvilTimer.debugOn();
+```
+
+デバッグモードをオンします。 ( URL 引数が有効になります。 )
+
+### EvilTimer.debugOff()
+
+```javascript
+EvilTimer.debugOff();
+```
+
+デバッグモードをオフします。 ( URL 引数が無効になります。 )
+
+### EvilTimer.isDebug()
+
+```javascript
+EvilTimer.isDebug();
+```
+
+デバッグモードがオンになっていれば true、そうでなければ false を返します。
+
 ### EvilTimer.getStatus()
 
 次のような JSON を返します。
@@ -256,6 +280,7 @@ EvilTimer.setStyleReplaceMode("rules");
 ```json
 {
     "enabled": true,
+    "debug": false,
     "speed": 1000,
     "isPaused": true,
     "susppendedTasksCount": 2,
