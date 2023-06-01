@@ -37,6 +37,7 @@ module EvilTimer
     export type EvilTimerConfigType =
     {
         disabled?: boolean;
+        debug?: boolean;
         disabledLoadMessage?: boolean;
         date?: "evil" | "vanilla" | boolean | Date | number | string;
         speed?: number;
@@ -55,6 +56,8 @@ EvilTimer.set(false); // Disable EvilTimer
 EvilTimer.set(true); // Enable EvilTimer
 EvilTimer.set({ disabled: true, }); // Same EvilTimer.set(false);
 EvilTimer.set({ disabled: false, }); // Same EvilTimer.set(true);
+EvilTimer.set({ debug: true, }); // Same EvilTimer.debugOn();
+EvilTimer.set({ debug: false, }); // Same EvilTimer.debugOff();
 EvilTimer.set({ disabledLoadMessage: true, }); // Actually, this usage doesn't make sense because it is after the message is output.
 EvilTimer.set({ date: new Date(2022,1,22,22,22,22), });
 EvilTimer.set({ date: "2022-02-22T22:22:22", });
