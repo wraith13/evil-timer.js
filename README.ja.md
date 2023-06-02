@@ -20,6 +20,28 @@ HTMLの `head` タグ内で次のような記述を行ってください。( Jav
 
 `setTimeout`, `setInterval` に対して後から影響を及ぼす事はできないので、時間のスピードをコントロールしたい場合は URL 引数での指定を推奨します。
 
+## URL 引数について
+
+第三者による悪意あるリンクが作成/拡散されるの防ぐ為、 default では URL 引数は無効になっています。
+
+一度、Web ブラウザでアクセスして JavaScript コンソールから次のコマンドを実行することで URL 引数による指定が有効になります。
+
+```js
+EvilTimer.debugOn();
+```
+
+HTML内で次のように設定しておくと初めから URL 引数が利用できますが、第三者による悪意あるリンクの作成/拡散ができてしまうので、ローカル環境 or クローズド環境でのテスト時以外でこれをやる事は推奨できません。 ( ちなみにこの形で `debug` を `false` に指定しておくと、 `EvilTimer.debugOn()` を実行しても HTML が読み込まれる度にデバッグモードがオフになる為、 URL 引数の利用を禁止できます。 )
+
+```html
+<script>
+const evilTimerConfig =
+{
+    debug: true,
+};
+</script>
+<script src="https://wraith13.github.io/evil-timer.js/index.js"></script>
+```
+
 ## コマンド
 
 以下のコマンドを Web ブラウザの JavaScript コンソールから使用できます。

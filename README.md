@@ -20,6 +20,28 @@ You can control the time with URL arguments like `?evil-timer={"speed":100}`, or
 
 `setTimeout` and `setInterval` cannot be affected later, so if you want to control the speed of time, it is recommended to specify it with a URL argument.
 
+## About URL arguments
+
+URL arguments are disabled by default. This is to prevent malicious links from being created and spread by third parties.
+
+Once you access it with a web browser and execute the following command from the JavaScript console, the specification by the URL argument will be effective.
+
+```js
+EvilTimer.debugOn();
+```
+
+You can use the URL argument from the beginning if you set it as follows in the HTML, but it is possible for third persons to create and spread malicious links. It is not recommended to do this. ( By the way, if `debug` is set to `false` in this form, even if `EvilTimer.debugOn()` is executed, the debug mode will be turned off every time HTML is loaded, so the use of URL arguments is prohibited. )
+
+```html
+<script>
+const evilTimerConfig =
+{
+    debug: true,
+};
+</script>
+<script src="https://wraith13.github.io/evil-timer.js/index.js"></script>
+```
+
 ## Commands
 
 You can use the following commands from JavaScript console of web browser.
