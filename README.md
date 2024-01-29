@@ -12,7 +12,7 @@ Write as follows in the `head` tag of HTML. ( You can also copy the JavaScript f
 <script src="https://wraith13.github.io/evil-timer.js/index.js"></script>
 ```
 
-Must be loaded before `Date`, `setTimeout`, `setInterval` are used.
+Must be loaded before `Date`, `setTimeout`, `setInterval`, `window.requestAnimationFrame` are used.
 
 ## How to use
 

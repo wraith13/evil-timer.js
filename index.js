@@ -14,6 +14,7 @@ var EvilTimer;
     var VanillaDate = Date;
     var vanillaSetTimeout = setTimeout;
     var vanillaSetInteral = setInterval;
+    var vanillaRequestAnimationFrame = (window !== null && window !== void 0 ? window : {}).requestAnimationFrame;
     var dateMode = "evil";
     EvilTimer.setDateMode = function (mode) {
         switch (mode) {
@@ -37,6 +38,8 @@ var EvilTimer;
     var ankerAt = {
         vanilla: 0,
         evil: 0,
+        vanillaPerformance: 0,
+        evilPerformance: 0,
     };
     EvilTimer.getVanillaNow = function () { return new VanillaDate().getTime(); };
     EvilTimer.getEvilNow = function () {
@@ -44,18 +47,29 @@ var EvilTimer;
             EvilTimer.getVanillaNow() :
             ankerAt.evil + (isPaused ? 0 : (speed * (EvilTimer.getVanillaNow() - ankerAt.vanilla)));
     };
+    EvilTimer.getVanillaPerformanceNow = function () { return performance.now(); };
+    EvilTimer.getEvilPerformanceNow = function () {
+        return !isAnkered() ?
+            EvilTimer.getVanillaPerformanceNow() :
+            ankerAt.evilPerformance + (isPaused ? 0 : (speed * (EvilTimer.getVanillaPerformanceNow() - ankerAt.vanillaPerformance)));
+    };
     var isAnkered = function () { return 0 !== ankerAt.vanilla; };
-    var setAnkerAt = function (evil) { return ankerAt =
+    var setAnkerAt = function (evil, evilPerformance) { return ankerAt =
         {
             vanilla: EvilTimer.getVanillaNow(),
             evil: evil !== null && evil !== void 0 ? evil : EvilTimer.getEvilNow(),
+            vanillaPerformance: EvilTimer.getVanillaPerformanceNow(),
+            evilPerformance: evilPerformance !== null && evilPerformance !== void 0 ? evilPerformance : EvilTimer.getEvilPerformanceNow(),
         }; };
-    var resetAnkerAt = function (vanilla) {
+    var resetAnkerAt = function (vanilla, vanillaPerformance) {
         if (vanilla === void 0) { vanilla = isRegularSpeed() ? 0 : EvilTimer.getVanillaNow(); }
+        if (vanillaPerformance === void 0) { vanillaPerformance = isRegularSpeed() ? 0 : EvilTimer.getVanillaPerformanceNow(); }
         return ankerAt =
             {
                 vanilla: vanilla,
                 evil: vanilla,
+                vanillaPerformance: vanillaPerformance,
+                evilPerformance: vanillaPerformance,
             };
     };
     /*
@@ -369,6 +383,14 @@ var EvilTimer;
             }
         }, undefined === wait ? wait : wait / Math.abs(speed));
     };
+    EvilTimer.evilRequestAnimationFrame = function (callback) { return vanillaRequestAnimationFrame(function (_tick) {
+        if (isPaused) {
+            susppendedTasks.push(function () { return callback(EvilTimer.getEvilPerformanceNow()); });
+        }
+        else {
+            callback(EvilTimer.getEvilPerformanceNow());
+        }
+    }); };
     var Vanilla;
     (function (Vanilla) {
         Vanilla.Date = function _a() {
@@ -406,12 +428,18 @@ var EvilTimer;
                 gThis.Date = EvilTimer.EvilDate;
                 gThis.setTimeout = EvilTimer.evilSetTimeout;
                 gThis.setInterval = EvilTimer.evilSetInterval;
+                if (window) {
+                    window.requestAnimationFrame = EvilTimer.evilRequestAnimationFrame;
+                }
             }
             else {
                 // delete gThis.EvilTimer;
                 gThis.Date = VanillaDate;
                 gThis.setTimeout = vanillaSetTimeout;
                 gThis.setInterval = vanillaSetInteral;
+                if (window) {
+                    window.requestAnimationFrame = vanillaRequestAnimationFrame;
+                }
             }
         }
         else {

@@ -12,7 +12,7 @@ HTMLの `head` タグ内で次のような記述を行ってください。( Jav
 <script src="https://wraith13.github.io/evil-timer.js/index.js"></script>
 ```
 
-`Date`, `setTimeout`, `setInterval` を使用する前に読み込ませる必要があります。
+`Date`, `setTimeout`, `setInterval`, `window.requestAnimationFrame` を使用する前に読み込ませる必要があります。
 
 ## 使い方
 

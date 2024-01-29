@@ -5,6 +5,7 @@ module EvilTimer
     const VanillaDate = Date;
     const vanillaSetTimeout = setTimeout;
     const vanillaSetInteral = setInterval;
+    const vanillaRequestAnimationFrame = (window ?? { }).requestAnimationFrame;
     export type DateModeType = "vanilla" | "evil";
     let dateMode: DateModeType = "evil";
     export const setDateMode = (mode: DateModeType) =>
@@ -34,6 +35,8 @@ module EvilTimer
     {
         vanilla: 0,
         evil: 0,
+        vanillaPerformance: 0,
+        evilPerformance: 0,
     };
     export const getVanillaNow = () => new VanillaDate().getTime();
     export const getEvilNow = function()
@@ -42,16 +45,27 @@ module EvilTimer
             getVanillaNow():
             ankerAt.evil +(isPaused ? 0: (speed *(getVanillaNow() -ankerAt.vanilla)));
     };
+    export const getVanillaPerformanceNow = () => performance.now();
+    export const getEvilPerformanceNow = function()
+    {
+        return ! isAnkered() ?
+            getVanillaPerformanceNow():
+            ankerAt.evilPerformance +(isPaused ? 0: (speed *(getVanillaPerformanceNow() -ankerAt.vanillaPerformance)));
+    };
     const isAnkered = () => 0 !== ankerAt.vanilla;
-    const setAnkerAt = (evil?: number) => ankerAt =
+    const setAnkerAt = (evil?: number, evilPerformance?: number) => ankerAt =
     {
         vanilla: getVanillaNow(),
         evil: evil ?? getEvilNow(),
+        vanillaPerformance: getVanillaPerformanceNow(),
+        evilPerformance: evilPerformance ?? getEvilPerformanceNow(),
     };
-    const resetAnkerAt = (vanilla: number = isRegularSpeed() ? 0: getVanillaNow()) => ankerAt =
+    const resetAnkerAt = (vanilla: number = isRegularSpeed() ? 0: getVanillaNow(), vanillaPerformance: number = isRegularSpeed() ? 0: getVanillaPerformanceNow()) => ankerAt =
     {
         vanilla,
         evil: vanilla,
+        vanillaPerformance,
+        evilPerformance: vanillaPerformance,
     };
     /*
     remain for support to timezone and locale.
@@ -422,6 +436,20 @@ module EvilTimer
             undefined === wait ? wait: wait / Math.abs(speed)
         );
     };
+    export const evilRequestAnimationFrame = (callback: (tick: number) => unknown) => vanillaRequestAnimationFrame
+    (
+        (_tick: number) =>
+        {
+            if (isPaused)
+            {
+                susppendedTasks.push(() => callback(getEvilPerformanceNow()));
+            }
+            else
+            {
+                callback(getEvilPerformanceNow());
+            }
+        }
+    );
     export module Vanilla
     {
         export const Date = function(...args)
@@ -470,8 +498,12 @@ module EvilTimer
             {
                 gThis.EvilTimer = EvilTimer;
                 gThis.Date = EvilDate;
-                gThis.setTimeout = evilSetTimeout;
-                gThis.setInterval = evilSetInterval;
+                gThis.setTimeout = evilSetTimeout as typeof gThis.setTimeout;
+                gThis.setInterval = evilSetInterval as typeof gThis.setInterval;
+                if (window)
+                {
+                    window.requestAnimationFrame = evilRequestAnimationFrame;
+                }
             }
             else
             {
@@ -479,6 +511,10 @@ module EvilTimer
                 gThis.Date = VanillaDate;
                 gThis.setTimeout = vanillaSetTimeout;
                 gThis.setInterval = vanillaSetInteral;
+                if (window)
+                {
+                    window.requestAnimationFrame = vanillaRequestAnimationFrame;
+                }
             }
         }
         else
