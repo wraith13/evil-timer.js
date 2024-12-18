@@ -1,0 +1,30 @@
+{
+    "name": "@wraith13/evil-timer.js",
+    "version": "1.0.0",
+    "description": "evil-timer.js is an auxiliary script for debugging and tuning CSS.",
+    "main": "./index.js",
+    "scripts": {
+        "generate type": "node ./evil-type.ts ./type.json",
+        "build script": "tsc -p ./tsconfig.json",
+        "watch script": "tsc --watch -p ./tsconfig.json"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/wraith13/evil-timer.js.git"
+    },
+    "keywords": [
+        "css",
+        "style",
+        "pattern",
+        "universal design"
+    ],
+    "author": "wraith13",
+    "license": "BSL-1.0",
+    "bugs": {
+        "url": "https://github.com/wraith13/evil-timer.js/issues"
+    },
+    "homepage": "https://github.com/wraith13/evil-timer.js/#readme",
+    "devDependencies": {
+        "typescript": "^5.7.2"
+    }
+}
