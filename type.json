@@ -86,7 +86,7 @@
         "schema": {
             "outputFile": "./generated/schema.json",
             "$id": "https://raw.githubusercontent.com/wraith13/evil-timer.js/master/generated/schema.json#",
-            "$ref": "Type.Arguments"
+            "$ref": "Type.EvilTimerConfigType"
         }
     }
 }
