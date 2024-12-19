@@ -1,0 +1,56 @@
+{
+    "$id": "https://raw.githubusercontent.com/wraith13/evil-timer.js/master/generated/schema.json#",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$ref": "#/definitions/Type.Arguments",
+    "definitions": {
+        "Type.StyleReplaceModeType": {
+            "enum": [
+                "auto",
+                "disabled",
+                "embedded",
+                "rules"
+            ]
+        },
+        "Type.EvilTimerConfigType": {
+            "type": "object",
+            "properties": {
+                "$schema": {
+                    "const": "https://raw.githubusercontent.com/wraith13/evil-timer.js/master/generated/schema.json#"
+                },
+                "disabled": {
+                    "type": "boolean"
+                },
+                "debug": {
+                    "type": "boolean"
+                },
+                "disabledLoadMessage": {
+                    "type": "boolean"
+                },
+                "date": {
+                    "oneOf": [
+                        {
+                            "type": "boolean"
+                        },
+                        {
+                            "type": "number"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "speed": {
+                    "type": "number"
+                },
+                "pause": {
+                    "type": "boolean"
+                },
+                "styleReplaceMode": {
+                    "$ref": "#/definitions/Type.StyleReplaceModeType"
+                }
+            },
+            "required": [],
+            "additionalProperties": false
+        }
+    }
+}

@@ -1,0 +1,92 @@
+{
+    "$schema": "https://raw.githubusercontent.com/wraith13/evil-type.ts/master/generated/schema/type.json#",
+    "imports": [
+        {
+            "import": "{ EvilType }",
+            "from": "../evil-type.ts/common/evil-type"
+        }
+    ],
+    "defines": {
+        "export": {
+            "type": "code",
+            "export": true,
+            "tokens": [
+                "{",
+                "EvilType",
+                "}"
+            ]
+        },
+        "Type": {
+            "type": "namespace",
+            "members": {
+                "StyleReplaceModeType": {
+                    "type": "type",
+                    "define": {
+                        "type": "enum-type",
+                        "members": [
+                            "auto",
+                            "disabled",
+                            "embedded",
+                            "rules"
+                        ]
+                    }
+                },
+                "EvilTimerConfigType": {
+                    "type": "interface",
+                    "members": {
+                        "$schema?": {
+                            "const": "https://raw.githubusercontent.com/wraith13/evil-timer.js/master/generated/schema.json#"
+                        },
+                        "disabled?": {
+                            "type": "boolean"
+                        },
+                        "debug?": {
+                            "type": "boolean"
+                        },
+                        "disabledLoadMessage?": {
+                            "type": "boolean"
+                        },
+                        "date?": {
+                            "type": "or",
+                            "types": [
+                                {
+                                    "type": "boolean"
+                                },
+                                {
+                                    "type": "number"
+                                },
+                                {
+                                    "type": "string"
+                                }
+                            ]
+                        },
+                        "speed?": {
+                            "type": "number"
+                        },
+                        "pause?": {
+                            "type": "boolean"
+                        },
+                        "styleReplaceMode?": {
+                            "$ref": "StyleReplaceModeType"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "options": {
+        "outputFile": "./generated/type.ts",
+        "indentUnit": 4,
+        "indentStyle": "allman",
+        "validatorOption": "full",
+        "default": {
+            "export": true,
+            "additionalProperties": false
+        },
+        "schema": {
+            "outputFile": "./generated/schema.json",
+            "$id": "https://raw.githubusercontent.com/wraith13/evil-timer.js/master/generated/schema.json#",
+            "$ref": "Type.Arguments"
+        }
+    }
+}
