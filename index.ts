@@ -1,5 +1,7 @@
-module EvilTimer
+import { EvilType, Type as GeneratedType } from "./generated/type";
+export namespace EvilTimer
 {
+    export import Type = GeneratedType;
     declare var global: any;
     const gThis = (self ?? window ?? global);
     const VanillaDate = Date;
@@ -21,9 +23,7 @@ module EvilTimer
             break;
         }
     };
-    // export type StyleReplaceModeType = "auto" | "disabled" | "embedded" | "rules" | "sheets";
-    export type StyleReplaceModeType = "auto" | "disabled" | "embedded" | "rules";
-    let styleReplaceMode: StyleReplaceModeType = "disabled";
+    let styleReplaceMode: Type.StyleReplaceModeType = "disabled";
     let originalEmbeddedStyles:string[] | null = null;
     let originalStyleRules:(string[] | null)[] | null = null;
     // let originalStyleSheets:string[] = null;
@@ -357,7 +357,7 @@ module EvilTimer
         //     break;
         }
     };
-    export const setStyleReplaceMode = (mode: StyleReplaceModeType) =>
+    export const setStyleReplaceMode = (mode: Type.StyleReplaceModeType) =>
     {
         switch(mode)
         {
@@ -480,17 +480,7 @@ module EvilTimer
             ...args
         );
     }
-    export type EvilTimerConfigType =
-    {
-        disabled?: boolean;
-        debug?: boolean;
-        disabledLoadMessage?: boolean;
-        date?: Date | number | string | boolean;
-        speed?: number;
-        pause?: boolean;
-        styleReplaceMode?: StyleReplaceModeType;
-    };
-    export const set = (config: EvilTimerConfigType | boolean) =>
+    export const set = (config: Type.EvilTimerConfigType | boolean) =>
     {
         if ("boolean" === typeof config)
         {
@@ -600,7 +590,7 @@ module EvilTimer
         }
         return null;
     };
-    const globalEvilTimerConfig = (gThis as any).evilTimerConfig as EvilTimerConfigType | boolean | undefined;
+    const globalEvilTimerConfig = (gThis as any).evilTimerConfig as Type.EvilTimerConfigType | boolean | undefined;
     if ("object" === typeof globalEvilTimerConfig && "boolean" === typeof globalEvilTimerConfig.debug)
     {
         if (globalEvilTimerConfig.debug)
@@ -613,8 +603,8 @@ module EvilTimer
         }
     }
     const configFromUrl = getConfigFromUrl();
-    const configOrBoolean = (configFromUrl ?? (gThis as any).evilTimerConfig ?? true) as EvilTimerConfigType | boolean;
-    const evilTimerConfig: EvilTimerConfigType = "boolean" === typeof configOrBoolean ? { disabled: ! configOrBoolean, }: configOrBoolean;
+    const configOrBoolean = (configFromUrl ?? (gThis as any).evilTimerConfig ?? true) as Type.EvilTimerConfigType | boolean;
+    const evilTimerConfig: Type.EvilTimerConfigType = "boolean" === typeof configOrBoolean ? { disabled: ! configOrBoolean, }: configOrBoolean;
     if ( ! (evilTimerConfig.disabled ?? false))
     {
         set(true);
