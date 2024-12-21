@@ -216,12 +216,12 @@ export namespace EvilTimer
     {
         while(0 < step());
     };
-    const styleTimerRegExp = /((?:animation|transition)(?:-duration|-delay)?\s*:)([\+\-0-9A-Za-z.\s]+);/gmu;
+    const styleTimerRegExp = /((?:animation|transition)(?:-duration|-delay)?\s*:)([\+\-0-9A-Za-z.\s]+);/gm;
     const hasTimer = (css: string) => styleTimerRegExp.test(css);
     const replaceTimer = (rate: number, css: string) => css.replace
     (
         styleTimerRegExp,
-        (_m: string, p1: string, p2: string) => `${p1}${p2.replace(/([\+\-]?[0-9.]+)(m?s)/gmu, (_m, p1, p2) => (parseFloat(p1) / Math.abs(rate)).toLocaleString("en") +p2)};`
+        (_m: string, p1: string, p2: string) => `${p1}${p2.replace(/([\+\-]?[0-9.]+)(m?s)/gm, (_m, p1, p2) => (parseFloat(p1) / Math.abs(rate)).toLocaleString("en") +p2)};`
     );
     const updateEmbeddedStyle = (rate: number = speed) =>
     {
@@ -486,7 +486,7 @@ export namespace EvilTimer
         {
             if (config)
             {
-                gThis.EvilTimer = EvilTimer;
+                (gThis as any).EvilTimer = EvilTimer;
                 gThis.Date = EvilDate;
                 gThis.setTimeout = evilSetTimeout as typeof gThis.setTimeout;
                 gThis.setInterval = evilSetInterval as typeof gThis.setInterval;
@@ -548,7 +548,7 @@ export namespace EvilTimer
         const evil = new EvilDate();
         const result =
         {
-            enabled: gThis.EvilTimer === EvilTimer,
+            enabled: (gThis as any).EvilTimer === EvilTimer,
             debug: isDebug(),
             speed,
             isPaused,
@@ -591,6 +591,15 @@ export namespace EvilTimer
         return null;
     };
     const globalEvilTimerConfig = (gThis as any).evilTimerConfig as Type.EvilTimerConfigType | boolean | undefined;
+    if (undefined !== globalEvilTimerConfig && "boolean" !== typeof globalEvilTimerConfig)
+    {
+        var listener = EvilType.Error.makeListener("evilTimerConfig");
+        if ( ! Type.isEvilTimerConfigType(globalEvilTimerConfig, listener))
+        {
+            console.error("🚫 Invalid evilTimerConfig(in JavaScript)");
+            console.error(listener);
+        }
+    }
     if ("object" === typeof globalEvilTimerConfig && "boolean" === typeof globalEvilTimerConfig.debug)
     {
         if (globalEvilTimerConfig.debug)
@@ -603,6 +612,15 @@ export namespace EvilTimer
         }
     }
     const configFromUrl = getConfigFromUrl();
+    if (undefined !== configFromUrl && null !== configFromUrl && "boolean" !== typeof configFromUrl)
+    {
+        var listener = EvilType.Error.makeListener("configFromUrl");
+        if ( ! Type.isEvilTimerConfigType(configFromUrl, listener))
+        {
+            console.error("🚫 Invalid evil-timer(in URL Parameter)");
+            console.error(listener);
+        }
+    }
     const configOrBoolean = (configFromUrl ?? (gThis as any).evilTimerConfig ?? true) as Type.EvilTimerConfigType | boolean;
     const evilTimerConfig: Type.EvilTimerConfigType = "boolean" === typeof configOrBoolean ? { disabled: ! configOrBoolean, }: configOrBoolean;
     if ( ! (evilTimerConfig.disabled ?? false))
