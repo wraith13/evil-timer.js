@@ -16,8 +16,8 @@ export namespace Type
     }
     export const isStyleReplaceModeType: EvilType.Validator.IsType<StyleReplaceModeType> = EvilType.Validator.isEnum([ "auto", "disabled",
         "embedded", "rules" ] as const);
-    export const isEvilTimerConfigType = EvilType.lazy(() => EvilType.Validator.isSpecificObject(evilTimerConfigTypeValidatorObject, false)
-        );
+    export const isEvilTimerConfigType = EvilType.lazy(() => EvilType.Validator.isSpecificObject(evilTimerConfigTypeValidatorObject, {
+        additionalProperties: false }));
     export const evilTimerConfigTypeValidatorObject: EvilType.Validator.ObjectValidator<EvilTimerConfigType> = ({ $schema:
         EvilType.Validator.isOptional(EvilType.Validator.isJust(
         "https://raw.githubusercontent.com/wraith13/evil-timer.js/master/generated/schema.json#" as const)), disabled:

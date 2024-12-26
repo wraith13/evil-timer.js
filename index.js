@@ -563,12 +563,12 @@ define("evil-type.ts/common/evil-type", ["require", "exports"], function (requir
                 }
                 return Object.assign.apply(Object, __spreadArray([{}, target], sources, true));
             };
-            Validator.isSpecificObject = function (memberValidator, additionalProperties) {
+            Validator.isSpecificObject = function (memberValidator, options) {
                 return function (value, listner) {
                     if (Validator.isObject(value)) {
                         var result = Object.entries("function" === typeof memberValidator ? memberValidator() : memberValidator).map(function (kv) { return Validator.isMemberType(value, kv[0], kv[1], Error.nextListener(kv[0], listner)); })
                             .every(function (i) { return i; });
-                        if (false === additionalProperties) {
+                        if (false === (options === null || options === void 0 ? void 0 : options.additionalProperties)) {
                             var regularKeys_1 = Object.keys(memberValidator);
                             var additionalKeys = Object.keys(value)
                                 .filter(function (key) { return !regularKeys_1.includes(key); });
@@ -592,13 +592,13 @@ define("evil-type.ts/common/evil-type", ["require", "exports"], function (requir
                     }
                 };
             };
-            Validator.isDictionaryObject = function (isType, keys, additionalProperties) {
+            Validator.isDictionaryObject = function (isType, keys, options) {
                 return function (value, listner) {
                     if (Validator.isObject(value)) {
                         var result = undefined === keys ?
                             Object.entries(value).map(function (kv) { return isType(kv[1], Error.nextListener(kv[0], listner)); }).every(function (i) { return i; }) :
                             keys.map(function (key) { return isType(value, Error.nextListener(key, listner)); }).every(function (i) { return i; });
-                        if (undefined !== keys && false === additionalProperties) {
+                        if (undefined !== keys && false === (options === null || options === void 0 ? void 0 : options.additionalProperties)) {
                             var additionalKeys = Object.keys(value)
                                 .filter(function (key) { return !keys.includes(key); });
                             if (additionalKeys.some(function (_) { return true; })) {
@@ -633,7 +633,9 @@ define("generated/type", ["require", "exports", "evil-type.ts/common/evil-type"]
     (function (Type) {
         Type.isStyleReplaceModeType = evil_type_1.EvilType.Validator.isEnum(["auto", "disabled",
             "embedded", "rules"]);
-        Type.isEvilTimerConfigType = evil_type_1.EvilType.lazy(function () { return evil_type_1.EvilType.Validator.isSpecificObject(Type.evilTimerConfigTypeValidatorObject, false); });
+        Type.isEvilTimerConfigType = evil_type_1.EvilType.lazy(function () { return evil_type_1.EvilType.Validator.isSpecificObject(Type.evilTimerConfigTypeValidatorObject, {
+            additionalProperties: false
+        }); });
         Type.evilTimerConfigTypeValidatorObject = ({ $schema: evil_type_1.EvilType.Validator.isOptional(evil_type_1.EvilType.Validator.isJust("https://raw.githubusercontent.com/wraith13/evil-timer.js/master/generated/schema.json#")), disabled: evil_type_1.EvilType.Validator.isOptional(evil_type_1.EvilType.Validator.isBoolean), debug: evil_type_1.EvilType.Validator.isOptional(evil_type_1.EvilType.Validator.isBoolean),
             disabledLoadMessage: evil_type_1.EvilType.Validator.isOptional(evil_type_1.EvilType.Validator.isBoolean), date: evil_type_1.EvilType.Validator.isOptional(evil_type_1.EvilType.Validator.isOr(evil_type_1.EvilType.Validator.isBoolean, evil_type_1.EvilType.Validator.isNumber, evil_type_1.EvilType.Validator.isString)), speed: evil_type_1.EvilType.Validator.isOptional(evil_type_1.EvilType.Validator.isNumber), pause: evil_type_1.EvilType.Validator.isOptional(evil_type_1.EvilType.Validator.isBoolean),
             styleReplaceMode: evil_type_1.EvilType.Validator.isOptional(Type.isStyleReplaceModeType), });
