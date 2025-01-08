@@ -318,17 +318,31 @@ define("evil-type.ts/common/evil-type", ["require", "exports"], function (requir
                 }
                 return "string(".concat(details.join(","), ")");
             };
+            Validator.regexpTest = function (pattern, flags, text) {
+                switch (pattern) {
+                    case "^[[:regex:]]$":
+                        try {
+                            new RegExp(text, flags);
+                            return true;
+                        }
+                        catch (_a) {
+                            return false;
+                        }
+                    default:
+                        return new RegExp(pattern, flags).test(text);
+                }
+            };
             Validator.isDetailedString = function (data, regexpFlags) {
                 if ([data.minLength, data.maxLength, data.pattern, data.format].every(function (i) { return undefined === i; })) {
                     return Validator.isString;
                 }
                 var pattern = data.pattern;
                 var result = function (value, listner) {
-                    var _a, _b;
+                    var _a, _b, _c;
                     return Error.withErrorHandling("string" === typeof value &&
                         (undefined === data.minLength || data.minLength <= value.length) &&
                         (undefined === data.maxLength || value.length <= data.maxLength) &&
-                        (undefined === pattern || new RegExp(pattern, (_b = (_a = data.regexpFlags) !== null && _a !== void 0 ? _a : regexpFlags) !== null && _b !== void 0 ? _b : "u").test(value)), listner, function () { return Validator.makeStringTypeName(data); }, value);
+                        (undefined === pattern || ((_a = data.regexpTest) !== null && _a !== void 0 ? _a : Validator.regexpTest)(pattern, (_c = (_b = data.regexpFlags) !== null && _b !== void 0 ? _b : regexpFlags) !== null && _c !== void 0 ? _c : "u", value)), listner, function () { return Validator.makeStringTypeName(data); }, value);
                 };
                 return result;
             };
